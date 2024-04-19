@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+using static UnityEditor.ShaderData;
 
 public class CurveManager : MonoBehaviour
 {
@@ -20,23 +21,25 @@ public class CurveManager : MonoBehaviour
     {
         Init();
 
-        if (ViewCurve)
-        {
+
             DrawCurve();
-        }
+        
     }
     void DrawCurve()
     {
-        for (int i = 0; i < points.Count - 2; i += 2)
+        if (ViewCurve)
         {
-            for (float t = 0; t <= 1; t += pas)
+            for (int i = 0; i < points.Count - 2; i += 2)
             {
-                Vector3 _AB = Vector3.Lerp(points[i].transform.position, points[i + 1].transform.position, t);
-                Vector3 _BC = Vector3.Lerp(points[i + 1].transform.position, points[i + 2].transform.position, t);
-                Vector3 posFinal = Vector3.Lerp(_AB, _BC, t);
-                Vector3 posLineMax = Vector3.Lerp(_AB, _BC, t + pas);
+                for (float t = 0; t <= 1; t += pas)
+                {
+                    Vector3 _AB = Vector3.Lerp(points[i].transform.position, points[i + 1].transform.position, t);
+                    Vector3 _BC = Vector3.Lerp(points[i + 1].transform.position, points[i + 2].transform.position, t);
+                    Vector3 posFinal = Vector3.Lerp(_AB, _BC, t);
+                    Vector3 posLineMax = Vector3.Lerp(_AB, _BC, t + pas);
 
-                Gizmos.DrawLine(posFinal, posLineMax);
+                    Gizmos.DrawLine(posFinal, posLineMax);
+                }
             }
         }
     }
@@ -45,13 +48,13 @@ public class CurveManager : MonoBehaviour
     {
         if (DossierPoints == null)
         {
-            DossierPoints = new GameObject("DossierPoints");
+            DossierPoints = new GameObject("FolderPoints");
             DossierPoints.transform.SetParent(transform);
         }
 
         if (Dossier_go == null)
         {
-            Dossier_go = new GameObject("Dossier_go");
+            Dossier_go = new GameObject("FolderGameObject");
             Dossier_go.transform.SetParent(transform);
         }
 
@@ -82,16 +85,19 @@ public class CurveManager : MonoBehaviour
             GameObject pointA = new GameObject("PosInitial");
             pointA.transform.position = new Vector3(0, 0, 0);
             pointA.transform.SetParent(DossierPoints.transform);
+            pointA.AddComponent<CustomVisualPoint>();
             points[0] = pointA;
 
             GameObject pointB = new GameObject("Tangente 1");
             pointB.transform.position = new Vector3(1, 1.5f, 0);
             pointB.transform.SetParent(DossierPoints.transform);
+            pointB.AddComponent<CustomVisualTangente>();
             points[1] = pointB;
 
             GameObject pointC = new GameObject("Destination 1"); 
             pointC.transform.position = new Vector3(2, 0, 0);
             pointC.transform.SetParent(DossierPoints.transform);
+            pointC.AddComponent<CustomVisualPoint>();
             points[2] = pointC;
         }
     }

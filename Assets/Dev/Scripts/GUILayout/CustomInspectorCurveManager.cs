@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class CustomInspectorCurveManager : Editor
 {
-    float spaceButton = 0.55f; 
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
