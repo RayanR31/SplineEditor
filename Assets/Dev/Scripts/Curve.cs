@@ -17,6 +17,7 @@ public class Curve : MonoBehaviour
     private Transform A_go;
     private Transform B_go;
     private Transform C_go;
+
     void OnDrawGizmos()
     {
         for (int i = 0; i < 100; i++)
