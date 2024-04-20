@@ -20,21 +20,23 @@ public class CustomInspectorCurveManager : Editor
     {
         CurveManager curveManager = (CurveManager)target;
 
-        if (GUILayout.Button("Generate NEW Pattoun", GUILayout.Height(30f)))
+        GUILayout.Space(10f);
+
+        if (GUILayout.Button("Generate NEW GameObject", GUILayout.Height(30f)))
         {
-            curveManager.GeneratePattoun();
+            curveManager.GenerateGameObject();
         }
 
         GUILayout.Space(10f);
 
-        if (GUILayout.Button("ADD Pattoun", GUILayout.Height(30f)))
+        if (GUILayout.Button("ADD GameObject", GUILayout.Height(30f)))
         {
-            curveManager.AddPattoun();
+            curveManager.AddGameObject();
         }
 
         GUILayout.Space(10f);
 
-        if (GUILayout.Button("Clear Pattoun", GUILayout.Height(30f)))
+        if (GUILayout.Button("Clear GameObject", GUILayout.Height(30f)))
         {
             curveManager.Clear();
         }
@@ -57,7 +59,7 @@ public class CustomInspectorCurveManager : Editor
 
         if (GUILayout.Button("Delete Point", GUILayout.Height(30f)))
         {
-            curveManager.SuppPoint();
+            curveManager.DeletePoint();
         }
     }
 }
